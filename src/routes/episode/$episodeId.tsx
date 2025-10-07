@@ -1,7 +1,6 @@
 import { pb } from "@/lib/pocketbase";
 import { Episode } from "@/types";
 import { createFileRoute } from "@tanstack/react-router";
-import { createServerFn } from "@tanstack/react-start";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Edit from "@/components/Edit";
 import Streamyard from "@/components/Streamyard";
@@ -14,24 +13,37 @@ import CopyText from "@/components/CopyText";
 // import { Button } from "@/components/ui/button";
 // import { saveEpisode } from "@/lib/utils";
 
-const getEpisode = createServerFn({ method: "POST" }).handler(
-  async ({ data }) => {
+// const getEpisode = createServerFn({ method: "POST" }).handler(
+//   async ({ data }) => {
+//     let episode;
+//     if (data === "building-web-demos") {
+//       episode = (await pb
+//         .collection("reccuring")
+//         .getFirstListItem(`slug="${data}"`)) as unknown as Episode;
+//     } else {
+//       episode = (await pb
+//         .collection("episodes")
+//         .getFirstListItem(`slug="${data}"`)) as unknown as Episode;
+//     }
+
+//     return episode;
+//   }
+// );
+export const Route = createFileRoute("/episode/$episodeId")({
+  loader: async ({ params: { episodeId } }) => {
     let episode;
-    if (data === "building-web-demos") {
+    if (episodeId === "building-web-demos") {
       episode = (await pb
         .collection("reccuring")
-        .getFirstListItem(`slug="${data}"`)) as unknown as Episode;
+        .getFirstListItem(`slug="${episodeId}"`)) as unknown as Episode;
     } else {
       episode = (await pb
         .collection("episodes")
-        .getFirstListItem(`slug="${data}"`)) as unknown as Episode;
+        .getFirstListItem(`slug="${episodeId}"`)) as unknown as Episode;
     }
 
     return episode;
-  }
-);
-export const Route = createFileRoute("/episode/$episodeId")({
-  loader: ({ params: { episodeId } }) => getEpisode({ data: episodeId }),
+  },
   component: RouteComponent,
   notFoundComponent: () => <div>Episode Not found</div>,
 });
