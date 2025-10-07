@@ -18,8 +18,8 @@ const config = defineConfig({
       },
     }),
     viteReact(),
-    netlify(),
     nitroV2Plugin(),
+    netlify(),
   ],
 });
 
