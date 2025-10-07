@@ -2,20 +2,17 @@ import EpisodeCard from "@/components/Card";
 import { pb } from "@/lib/pocketbase";
 import { Episode } from "@/types";
 import { createFileRoute } from "@tanstack/react-router";
-import { createServerFn } from "@tanstack/react-start";
-
-const getData = createServerFn().handler(async () => {
-  const episodes = (await pb
-    .collection("episodes")
-    .getFullList({ sort: "date" })) as unknown as Episode;
-  const reccuring = (await pb
-    .collection("reccuring")
-    .getFullList()) as unknown as Episode;
-  return { episodes, reccuring };
-});
 
 export const Route = createFileRoute("/")({
-  loader: () => getData(),
+  loader: async () => {
+    const episodes = (await pb
+      .collection("episodes")
+      .getFullList({ sort: "date" })) as unknown as Episode;
+    const reccuring = (await pb
+      .collection("reccuring")
+      .getFullList()) as unknown as Episode;
+    return { episodes, reccuring };
+  },
   component: App,
 });
 
