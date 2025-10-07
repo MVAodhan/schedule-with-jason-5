@@ -24,7 +24,7 @@ export default function EpisodeCard({ ep }: { ep: Episode }) {
       <Card>
         <CardHeader>
           <div className="w-full flex justify-end gap-5 mb-5">
-            <Link to={`/episode/${ep.slug}`}>
+            <Link to="/episode/$episodeId" params={{ episodeId: ep.slug }}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="18"

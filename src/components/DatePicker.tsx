@@ -20,9 +20,9 @@ export function DatePickerDemo({
   if (date != undefined) {
     const locStr = date.toLocaleDateString();
     const [d, m, y] = locStr.split("/");
-    const [dateString, time] = date.toISOString().split("T");
-    const [h, mm, stz] = time.split(":");
-    const [s, tz] = stz.split(".");
+    const [_dateString, time] = date.toISOString().split("T");
+    const [_h, _mm, stz] = time.split(":");
+    const [_s, tz] = stz.split(".");
     const newDateStr = `${y}-${m}-${d}` + "T16:30:00." + tz;
     setNewUTCString(newDateStr);
   }

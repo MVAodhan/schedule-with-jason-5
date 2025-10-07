@@ -12,7 +12,7 @@ const LinkList = ({
   setLinks,
 }: {
   links: ListLink[];
-  setLinks: React.SetStateAction<React.Dispatch<ListLink[]>>;
+  setLinks: React.Dispatch<React.SetStateAction<ListLink[]>>;
 }) => {
   const deleteLink = (id: string) => {
     const newLinks = links.filter((link) => {
